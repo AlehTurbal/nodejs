@@ -1,18 +1,10 @@
 const express = require('express');
 const bodyParser= require('body-parser')
 const app = express();
-
-const article = {
-      "author": "BBC News",
-      "title": "Joint Pulitzer prize for Weinstein exposé",
-      "description": "The journalism honour is won for reporting on the Hollywood producer's alleged sexual misconduct.",
-      "url": "http://www.bbc.co.uk/news/world-us-canada-43790151",
-      "urlToImage": "https://ichef-1.bbci.co.uk/news/1024/branded_news/D318/production/_100904045_mediaitem100904044.jpg",
-      "publishedAt": "2018-04-16T20:14:42Z"
-    }
+app.set('view engine', 'pug')
 
 app.all('/', function (req, res) {
-  res.json(article);
+  res.render('index', { title: 'Hey', message: 'Hello there!' })
 });
 
 app.get('/blogs', (req, res) => {
