@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser= require('body-parser')
 const app = express();
 
 const article = {
@@ -13,6 +14,26 @@ const article = {
 app.all('/', function (req, res) {
   res.json(article);
 });
+
+app.get('/blogs', (req, res) => {
+  res.send('All');
+})
+
+app.post('/blogs', bodyParser.json(), (req, res) => {
+  res.send('Create');
+})
+
+app.post('/blogs/:id', bodyParser.json(), (req, res) => {
+  res.send('Update');
+})
+
+app.get('/blogs/:id', (req, res) => {
+  res.send('Read');
+})
+
+app.delete('/blogs/:id', (req, res) => {
+  res.send('Delete');
+})
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
