@@ -2,14 +2,20 @@ html
   head
     title
   body
-    div= articles
-    div
-      form(method='POST' action='/blogs')
-        div
-          label(for=title) Title:
-          input(name='title', type='text')
-        div
-          lable(for=description) Description:
-          input(name='description', type='text')
-        div
-          button(type='submit') Create
+    table
+      theader
+        th Title
+        th Description
+        th Show
+        th Delete
+      each article in articles
+        tr
+          td= article.title
+          td= article.description
+          td
+            a(href='/blogs/' + article.id) Show
+          td
+            form(method='POST' action='/blogs/' + article.id + '?_method=DELETE')
+              button(type='submit') Delete
+    br
+    a(href='/blogs/new') Add Article

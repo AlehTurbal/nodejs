@@ -2,8 +2,6 @@ html
   head
     title
   body
-    div= article
-
     form(method='POST' action='/blogs/' + article.id)
       div
         label(for=title) Title:
@@ -13,3 +11,4 @@ html
         input(name='description', type='text', value=article.description)
       div
         button(type='submit') Update
+

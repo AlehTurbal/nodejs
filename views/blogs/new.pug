@@ -1,0 +1,14 @@
+html
+  head
+    title Create New
+  body
+    div
+      form(method='POST' action='/blogs')
+        div
+          label(for=title) Title:
+          input(name='title', type='text')
+        div
+          lable(for=description) Description:
+          input(name='description', type='text')
+        div
+          button(type='submit') Create

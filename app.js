@@ -1,8 +1,10 @@
 const express = require('express');
 const bodyParser= require('body-parser')
 const app = express();
-app.set('view engine', 'pug')
-app.use(bodyParser.urlencoded({extended: true}))
+const methodOverride = require('method-override');
+app.set('view engine', 'pug');
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/articles');
@@ -26,12 +28,16 @@ app.get('/blogs', (req, res) => {
   });
 })
 
+app.get('/blogs/new', (req, res) => {
+  res.render('blogs/new')
+})
+
 app.post('/blogs', (req, res) => {
   const newArticle = Article({title: req.body.title, description: req.body.description})
 
   newArticle.save(function(err) {
     if (err) throw err;
-    res.send('Article created');
+    res.redirect('/blogs');
   });
 })
 
@@ -39,7 +45,7 @@ app.post('/blogs/:id', bodyParser.json(), (req, res) => {
   Article.findOneAndUpdate({ _id: req.params.id}, { title: req.body.title, description: req.body.description }, function(err, article) {
     if (err) throw err;
 
-    res.send('Article updated');
+    res.redirect('/blogs');
   });
 })
 
@@ -55,7 +61,8 @@ app.delete('/blogs/:id', (req, res) => {
   Article.findOneAndRemove({_id: req.params.id}, function(err) {
     if (err) throw err;
 
-    res.send('Article deleted');
+    // res.send('Article deleted');
+    res.redirect('/blogs');
   });
 })
 
